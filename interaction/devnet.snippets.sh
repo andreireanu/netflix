@@ -56,19 +56,28 @@ addToken() {
     --arguments "str:"${TOKEN_2}  
 }
 
+
+getTokensCount() {
+    mxpy --verbose contract query ${CONTRACT_ADDRESS} \
+    --proxy=${PROXY} \
+    --function="getTokensCount"  
+}
+
+TOKEN_ID=2
+
 getTokens() {
     mxpy --verbose contract query ${CONTRACT_ADDRESS} \
     --proxy=${PROXY} \
-    --function="getTokens"
+    --function="getTokens" \
+    --arguments ${TOKEN_ID} 
 }
+
 
 SERVICE1_PRICE=315
 SERVICE1_PERIODICITY=86400
 SERVICE2_PRICE=1000
 SERVICE2_PERIODICITY=604800
-
-
-
+ 
 addService() {
     mxpy --verbose contract call ${CONTRACT_ADDRESS} \
     --send \
@@ -90,6 +99,14 @@ getServices() {
     --arguments ${SERVICE_ID} 
 }
 
+
+getServicesCount() {
+    mxpy --verbose contract query ${CONTRACT_ADDRESS} \
+    --proxy=${PROXY} \
+    --function="getServicesCount"  
+}
+
+
 ### DEV CALLS (HANDLE WITH CARE)
 
 initServicesCount() {
@@ -103,11 +120,14 @@ initServicesCount() {
     --function="initServicesCount"
 }
 
-
-getServicesCount() {
-    mxpy --verbose contract query ${CONTRACT_ADDRESS} \
+initTokensCount() {
+    mxpy --verbose contract call ${CONTRACT_ADDRESS} \
+    --send \
     --proxy=${PROXY} \
-    --function="getServicesCount"  
+    --chain=${CHAIN_ID} \
+    --recall-nonce \
+    --pem="erc1155/wallets/bob.pem" \
+    --gas-limit=100000000 \
+    --function="initTokensCount"
 }
-
 

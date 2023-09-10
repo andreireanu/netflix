@@ -5,9 +5,9 @@
 ////////////////////////////////////////////////////
 
 // Init:                                 1
-// Endpoints:                            6
+// Endpoints:                            8
 // Async Callback (empty):               1
-// Total number of exported functions:   8
+// Total number of exported functions:  10
 
 #![no_std]
 
@@ -25,9 +25,11 @@ multiversx_sc_wasm_adapter::endpoints! {
         addToken => add_token
         addService => add_service
         initServicesCount => init_services_count
+        initTokensCount => init_tokens_count
+        getTokensCount => tokens_count
         getTokens => tokens
-        getServices => services
         getServicesCount => services_count
+        getServices => services
     )
 }
 

@@ -14,7 +14,10 @@ pub trait NetflixContract: crate::storage::StorageModule {
     #[only_owner]
     #[endpoint(addToken)]
     fn add_token(&self, token: TokenIdentifier) {
-        self.tokens().insert(token);
+        self.tokens_count().update(|id| {
+            self.tokens(id).set(token);
+            *id += 1;
+        });
     }
 
     #[only_owner]
@@ -24,18 +27,23 @@ pub trait NetflixContract: crate::storage::StorageModule {
             self.services(id).set(Service { price, periodicity });
             *id += 1;
         });
-
     }
-
 
     ////////////////
     // WARNING: DANGER ZONE!
     // THESE CALLS BREAK THE STORAGE LOGIC
 
-    // Clear token count if needed (After deploying contract)
+    // Init services count
     #[only_owner]
     #[endpoint(initServicesCount)]
     fn init_services_count(&self) {
         self.services_count().set(1usize);
+    }
+
+    // Init services count
+    #[only_owner]
+    #[endpoint(initTokensCount)]
+    fn init_tokens_count(&self) {
+        self.tokens_count().set(1usize);
     }
 }

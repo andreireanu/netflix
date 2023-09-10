@@ -13,18 +13,23 @@ pub struct Service  {
 
 #[multiversx_sc::module]
 pub trait StorageModule {
+    // Token count
+    #[view(getTokensCount)]
+    #[storage_mapper("tokens_count")]
+    fn tokens_count(&self) -> SingleValueMapper<usize>;
+
     // Allowed tokens
     #[view(getTokens)]
     #[storage_mapper("tokens")]
-    fn tokens(&self) -> UnorderedSetMapper<TokenIdentifier>;
+    fn tokens(&self, id: &usize) -> SingleValueMapper<TokenIdentifier>;
+
+    // Number of Services mapper
+    #[view(getServicesCount)]
+    #[storage_mapper("services_count")]
+    fn services_count(&self) -> SingleValueMapper<usize>;
 
     // Id To Services mapper
     #[view(getServices)]
     #[storage_mapper("services")]
     fn services(&self, id: &usize) -> SingleValueMapper<Service>;
-
-    // Number of Services mapper 
-    #[view(getServicesCount)]
-    #[storage_mapper("services_count")]
-    fn services_count(&self) -> SingleValueMapper<usize>;
 }

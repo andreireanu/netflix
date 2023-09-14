@@ -43,6 +43,7 @@ upgrade() {
 
 TOKEN_1=AMS-3a6740
 TOKEN_2=USDC-79d9a4
+TOKEN_3=BMS-e00535
 
 addToken() {
     mxpy --verbose contract call ${CONTRACT_ADDRESS} \
@@ -53,9 +54,8 @@ addToken() {
     --pem="erc1155/wallets/bob.pem" \
     --gas-limit=100000000 \
     --function="addToken" \
-    --arguments "str:"${TOKEN_2}  
+    --arguments "str:"${TOKEN_3}  
 }
-
 
 getTokensCount() {
     mxpy --verbose contract query ${CONTRACT_ADDRESS} \
@@ -63,7 +63,7 @@ getTokensCount() {
     --function="getTokensCount"  
 }
 
-TOKEN_ID=2
+TOKEN_ID=3
 
 getTokens() {
     mxpy --verbose contract query ${CONTRACT_ADDRESS} \
@@ -77,6 +77,8 @@ SERVICE1_PRICE=315
 SERVICE1_PERIODICITY=86400
 SERVICE2_PRICE=1000
 SERVICE2_PERIODICITY=604800
+SERVICE3_PRICE=3000
+SERVICE3_PERIODICITY=2678400
  
 addService() {
     mxpy --verbose contract call ${CONTRACT_ADDRESS} \
@@ -87,7 +89,7 @@ addService() {
     --pem="erc1155/wallets/bob.pem" \
     --gas-limit=100000000 \
     --function="addService" \
-    --arguments ${SERVICE2_PRICE} ${SERVICE2_PERIODICITY}
+    --arguments ${SERVICE3_PRICE} ${SERVICE3_PERIODICITY}
 }
 
 SERVICE_ID=2

@@ -23,6 +23,11 @@ pub trait StorageModule {
     #[storage_mapper("tokens")]
     fn tokens(&self, id: &usize) -> SingleValueMapper<TokenIdentifier>;
 
+    // Allowed tokens LP address
+    #[view(getLPAddress)]
+    #[storage_mapper("lp_address")]
+    fn lp_address(&self, id: &usize) -> SingleValueMapper<ManagedAddress>;
+
     // Number of Services mapper
     #[view(getServicesCount)]
     #[storage_mapper("services_count")]
@@ -32,4 +37,9 @@ pub trait StorageModule {
     #[view(getServices)]
     #[storage_mapper("services")]
     fn services(&self, id: &usize) -> SingleValueMapper<Service>;
+
+    // Safe Price view address
+    #[view(getSafePriceView)]
+    #[storage_mapper("safe_price_view")]
+    fn safe_price_view(&self) -> SingleValueMapper<ManagedAddress>;
 }

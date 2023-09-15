@@ -16,6 +16,9 @@ MARTA_ADDRESS="erd1uycnjd0epww6xrmn0xjdkfhjengpaf4l5866rlrd8qpcsamrqr8qs6ucxx"
 MARTA_ADDRESS_HEX="$(mxpy wallet bech32 --decode ${MARTA_ADDRESS})"
 MARTA_ADDRESS_HEXX="0x$(mxpy wallet bech32 --decode ${MARTA_ADDRESS})"
 
+SAFE_PRICE_VIEW="erd1qqqqqqqqqqqqqpgqs5t29sk6v0knxxnnc29pv6y0zgmemh287wpqmcx970"
+
+
 ### MAIN
 
 deploy() {
@@ -41,9 +44,35 @@ upgrade() {
     --metadata-payable
 }
 
+
+setSafePriceView() {
+    mxpy --verbose contract call ${CONTRACT_ADDRESS} \
+    --send \
+    --proxy=${PROXY} \
+    --chain=${CHAIN_ID} \
+    --recall-nonce \
+    --pem="erc1155/wallets/bob.pem" \
+    --gas-limit=100000000 \
+    --function="setSafePriceView" \
+    --arguments ${SAFE_PRICE_VIEW} 
+}
+
+getSafePriceView() {
+    mxpy --verbose contract query ${CONTRACT_ADDRESS} \
+    --proxy=${PROXY} \
+    --function="getSafePriceView"
+}
+
+
 TOKEN_1=AMS-3a6740
-TOKEN_2=USDC-79d9a4
-TOKEN_3=BMS-e00535
+LP_ADDRESS_TOKEN_1="erd1qqqqqqqqqqqqqpgqfs5vg9n23hvrgfmye4h9vj8p6ljtz2m37wpqj726a5"
+TOKEN_2=BMS-e00535
+LP_ADDRESS_TOKEN_2="erd1qqqqqqqqqqqqqpgqe92zyh296kxrmeszg5cynxcuj4vzckxg7wpqp89fmz"
+TOKEN_3=USDC-79d9a4
+# Zero address for stablecoin
+LP_ADDRESS_TOKEN_3="erd1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq6gq4hu"
+
+
 
 addToken() {
     mxpy --verbose contract call ${CONTRACT_ADDRESS} \
@@ -54,7 +83,7 @@ addToken() {
     --pem="erc1155/wallets/bob.pem" \
     --gas-limit=100000000 \
     --function="addToken" \
-    --arguments "str:"${TOKEN_3}  
+    --arguments "str:"${TOKEN_3}  ${LP_ADDRESS_TOKEN_3}
 }
 
 getTokensCount() {
@@ -63,14 +92,41 @@ getTokensCount() {
     --function="getTokensCount"  
 }
 
-TOKEN_ID=3
+TOKEN_ID_1=1
+TOKEN_ID_2=2
+TOKEN_ID_3=3
 
 getTokens() {
     mxpy --verbose contract query ${CONTRACT_ADDRESS} \
     --proxy=${PROXY} \
     --function="getTokens" \
-    --arguments ${TOKEN_ID} 
+    --arguments ${TOKEN_ID_1} 
+    mxpy --verbose contract query ${CONTRACT_ADDRESS} \
+    --proxy=${PROXY} \
+    --function="getTokens" \
+    --arguments ${TOKEN_ID_2} 
+    mxpy --verbose contract query ${CONTRACT_ADDRESS} \
+    --proxy=${PROXY} \
+    --function="getTokens" \
+    --arguments ${TOKEN_ID_3} 
 }
+
+
+getAddresses() {
+    mxpy --verbose contract query ${CONTRACT_ADDRESS} \
+    --proxy=${PROXY} \
+    --function="getLPAddress" \
+    --arguments ${TOKEN_ID_1} 
+    mxpy --verbose contract query ${CONTRACT_ADDRESS} \
+    --proxy=${PROXY} \
+    --function="getLPAddress" \
+    --arguments ${TOKEN_ID_2} 
+    mxpy --verbose contract query ${CONTRACT_ADDRESS} \
+    --proxy=${PROXY} \
+    --function="getLPAddress" \
+    --arguments ${TOKEN_ID_3} 
+}
+
 
 
 SERVICE1_PRICE=315
@@ -132,4 +188,6 @@ initTokensCount() {
     --gas-limit=100000000 \
     --function="initTokensCount"
 }
+
+
 

@@ -12,10 +12,17 @@ pub trait NetflixContract: crate::storage::StorageModule {
     fn init(&self) {}
 
     #[only_owner]
+    #[endpoint(setSafePriceView)]
+    fn set_safe_price_view(&self, safe_price_view_address: ManagedAddress) {
+        self.safe_price_view().set(safe_price_view_address);
+    }    
+
+    #[only_owner]
     #[endpoint(addToken)]
-    fn add_token(&self, token: TokenIdentifier) {
+    fn add_token(&self, token: TokenIdentifier, lp_address: ManagedAddress) {
         self.tokens_count().update(|id| {
             self.tokens(id).set(token);
+            self.lp_address(id).set( lp_address);
             *id += 1;
         });
     }

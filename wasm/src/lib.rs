@@ -5,9 +5,9 @@
 ////////////////////////////////////////////////////
 
 // Init:                                 1
-// Endpoints:                            8
+// Endpoints:                           11
 // Async Callback (empty):               1
-// Total number of exported functions:  10
+// Total number of exported functions:  13
 
 #![no_std]
 
@@ -22,14 +22,17 @@ multiversx_sc_wasm_adapter::endpoints! {
     netflix
     (
         init => init
+        setSafePriceView => set_safe_price_view
         addToken => add_token
         addService => add_service
         initServicesCount => init_services_count
         initTokensCount => init_tokens_count
         getTokensCount => tokens_count
         getTokens => tokens
+        getLPAddress => lp_address
         getServicesCount => services_count
         getServices => services
+        getSafePriceView => safe_price_view
     )
 }
 

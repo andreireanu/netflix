@@ -148,13 +148,23 @@ addService() {
     --arguments ${SERVICE3_PRICE} ${SERVICE3_PERIODICITY}
 }
 
-SERVICE_ID=2
+SERVICE_ID_1=1
+SERVICE_ID_2=2
+SERVICE_ID_3=3
 
 getServices() {
     mxpy --verbose contract query ${CONTRACT_ADDRESS} \
     --proxy=${PROXY} \
     --function="getServices" \
-    --arguments ${SERVICE_ID} 
+    --arguments ${SERVICE_ID_1}
+    mxpy --verbose contract query ${CONTRACT_ADDRESS} \
+    --proxy=${PROXY} \
+    --function="getServices" \
+    --arguments ${SERVICE_ID_2} 
+    mxpy --verbose contract query ${CONTRACT_ADDRESS} \
+    --proxy=${PROXY} \
+    --function="getServices" \
+    --arguments ${SERVICE_ID_3}  
 }
 
 

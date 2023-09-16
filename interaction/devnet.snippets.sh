@@ -44,6 +44,16 @@ upgrade() {
     --metadata-payable
 }
 
+getSubscriptionsTokens() {
+    mxpy --verbose contract call ${CONTRACT_ADDRESS} \
+    --send \
+    --proxy=${PROXY} \
+    --chain=${CHAIN_ID} \
+    --recall-nonce \
+    --pem="erc1155/wallets/bob.pem" \
+    --gas-limit=100000000 \
+    --function="getSubscriptionsTokens"
+}
 
 setSafePriceView() {
     mxpy --verbose contract call ${CONTRACT_ADDRESS} \
@@ -67,7 +77,7 @@ getSafePriceView() {
 TOKEN_1=AMS-3a6740
 LP_ADDRESS_TOKEN_1="erd1qqqqqqqqqqqqqpgqfs5vg9n23hvrgfmye4h9vj8p6ljtz2m37wpqj726a5"
 TOKEN_2=BMS-e00535
-LP_ADDRESS_TOKEN_2="erd1qqqqqqqqqqqqqpgqe92zyh296kxrmeszg5cynxcuj4vzckxg7wpqp89fmz"
+LP_ADDRESS_TOKEN_2="erd1qqqqqqqqqqqqqpgqzcewpeqhlk28ke2fguwqgjnvkkdv4h027wpqduupj3"
 TOKEN_3=USDC-79d9a4
 # Zero address for stablecoin
 LP_ADDRESS_TOKEN_3="erd1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq6gq4hu"
@@ -181,6 +191,11 @@ getServicesCount() {
     --function="getServicesCount"  
 }
 
+getSubscriptionAddress() {
+    mxpy --verbose contract query ${CONTRACT_ADDRESS} \
+    --proxy=${PROXY} \
+    --function="getSubscriptionAddress"  
+}
 
 ### DEV CALLS (HANDLE WITH CARE)
 

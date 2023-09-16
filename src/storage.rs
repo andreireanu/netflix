@@ -42,4 +42,9 @@ pub trait StorageModule {
     #[view(getSafePriceView)]
     #[storage_mapper("safe_price_view")]
     fn safe_price_view(&self) -> SingleValueMapper<ManagedAddress>;
+
+    // Subscription contract address
+    #[view(getSubscriptionAddress)]
+    #[storage_mapper("subscription_address")]
+    fn subscription_address(&self) -> SingleValueMapper<ManagedAddress>;
 }

@@ -5,9 +5,9 @@
 ////////////////////////////////////////////////////
 
 // Init:                                 1
-// Endpoints:                           11
+// Endpoints:                           14
 // Async Callback (empty):               1
-// Total number of exported functions:  13
+// Total number of exported functions:  16
 
 #![no_std]
 
@@ -25,6 +25,8 @@ multiversx_sc_wasm_adapter::endpoints! {
         setSafePriceView => set_safe_price_view
         addToken => add_token
         addService => add_service
+        setSubscriptionAddress => set_subscription_address
+        getSubscriptionsTokens => get_subscription_tokens
         initServicesCount => init_services_count
         initTokensCount => init_tokens_count
         getTokensCount => tokens_count
@@ -33,6 +35,7 @@ multiversx_sc_wasm_adapter::endpoints! {
         getServicesCount => services_count
         getServices => services
         getSafePriceView => safe_price_view
+        getSubscriptionAddress => subscription_address
     )
 }
 

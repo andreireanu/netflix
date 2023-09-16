@@ -6,8 +6,24 @@ multiversx_sc::derive_imports!();
 mod storage;
 use storage::Service;
 
+mod subscription_proxy {
+    multiversx_sc::imports!();
+
+    #[multiversx_sc::proxy]
+    pub trait SubsciptionContract {
+        #[endpoint(sendTokens)]
+        fn send_tokens(&self);
+    }
+}
+
 #[multiversx_sc::contract]
 pub trait NetflixContract: crate::storage::StorageModule {
+    #[proxy]
+    fn subscription_contract_proxy(
+        &self,
+        sc_address: ManagedAddress,
+    ) -> subscription_proxy::Proxy<Self::Api>;
+
     #[init]
     fn init(&self) {}
 
@@ -34,6 +50,21 @@ pub trait NetflixContract: crate::storage::StorageModule {
             self.services(id).set(Service { price, periodicity });
             *id += 1;
         });
+    }
+
+    #[endpoint(setSubscriptionAddress)]
+    fn set_subscription_address(&self) {
+        let caller = self.blockchain().get_caller();
+        self.subscription_address().set(caller);
+    }
+
+    #[only_owner]
+    #[endpoint(getSubscriptionsTokens)]
+    fn get_subscription_tokens(&self) {
+        let _: IgnoreValue = self
+            .subscription_contract_proxy(self.subscription_address().get())
+            .send_tokens()
+            .execute_on_dest_context();
     }
 
     ////////////////

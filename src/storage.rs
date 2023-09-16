@@ -4,8 +4,8 @@ multiversx_sc::derive_imports!();
 // CUSTOM FORMAT
 #[derive(PartialEq, TypeAbi, TopEncode, TopDecode, NestedEncode, NestedDecode, Clone)]
 pub struct Service<M: ManagedTypeApi> {
-    pub price: BigUint<M>, // Price stored as a 2 decimal value so 3.25$ will be stored as 325
-    pub periodicity: u64,  // Periodicity stored in seconds
+    pub price: BigUint<M>,
+    pub periodicity: u64, // Periodicity stored in seconds
 }
 
 

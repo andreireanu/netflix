@@ -129,11 +129,18 @@ getAddresses() {
 
 
 
-SERVICE1_PRICE=315
+SERVICE1_PRICE=315 # we define the price with 2 decimals so 315 is equivalent to 3.15 $
+POWER=16 # we multiply with 16 to get 18 decimals value
+POWERED=$((10**${POWER}))
+SERVICE1_PRICE_POWERED=$( printf "%.0f" $(echo "${SERVICE1_PRICE} * ${POWERED}" | bc) ) 
 SERVICE1_PERIODICITY=86400
+
 SERVICE2_PRICE=1000
+SERVICE2_PRICE_POWERED=$( printf "%.0f" $(echo "${SERVICE2_PRICE} * ${POWERED}" | bc) ) 
 SERVICE2_PERIODICITY=604800
+
 SERVICE3_PRICE=3000
+SERVICE3_PRICE_POWERED=$( printf "%.0f" $(echo "${SERVICE3_PRICE} * ${POWERED}" | bc) ) 
 SERVICE3_PERIODICITY=2678400
  
 addService() {
@@ -145,7 +152,7 @@ addService() {
     --pem="erc1155/wallets/bob.pem" \
     --gas-limit=100000000 \
     --function="addService" \
-    --arguments ${SERVICE3_PRICE} ${SERVICE3_PERIODICITY}
+    --arguments ${SERVICE3_PRICE_POWERED} ${SERVICE1_PERIODICITY}
 }
 
 SERVICE_ID_1=1

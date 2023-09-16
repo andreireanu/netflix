@@ -29,7 +29,7 @@ pub trait NetflixContract: crate::storage::StorageModule {
 
     #[only_owner]
     #[endpoint(addService)]
-    fn add_service(&self, price: u16, periodicity: u64) {
+    fn add_service(&self, price: BigUint, periodicity: u64) {
         self.services_count().update(|id| {
             self.services(id).set(Service { price, periodicity });
             *id += 1;

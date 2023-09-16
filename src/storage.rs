@@ -3,9 +3,9 @@ multiversx_sc::derive_imports!();
 
 // CUSTOM FORMAT
 #[derive(PartialEq, TypeAbi, TopEncode, TopDecode, NestedEncode, NestedDecode, Clone)]
-pub struct Service  {
-    pub price: u16,  // Price stored as a 2 decimal value so 3.25$ will be stored as 325
-    pub periodicity: u64, // Periodicity stored in seconds
+pub struct Service<M: ManagedTypeApi> {
+    pub price: BigUint<M>, // Price stored as a 2 decimal value so 3.25$ will be stored as 325
+    pub periodicity: u64,  // Periodicity stored in seconds
 }
 
 
@@ -36,7 +36,7 @@ pub trait StorageModule {
     // Id To Services mapper
     #[view(getServices)]
     #[storage_mapper("services")]
-    fn services(&self, id: &usize) -> SingleValueMapper<Service>;
+    fn services(&self, id: &usize) -> SingleValueMapper<Service<Self::Api>>;
 
     // Safe Price view address
     #[view(getSafePriceView)]

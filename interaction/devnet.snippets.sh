@@ -50,7 +50,7 @@ getSubscriptionsTokens() {
     --proxy=${PROXY} \
     --chain=${CHAIN_ID} \
     --recall-nonce \
-    --pem="erc1155/wallets/bob.pem" \
+    --pem="netflix/wallets/bob.pem" \
     --gas-limit=100000000 \
     --function="getSubscriptionsTokens"
 }
@@ -61,7 +61,7 @@ setSafePriceView() {
     --proxy=${PROXY} \
     --chain=${CHAIN_ID} \
     --recall-nonce \
-    --pem="erc1155/wallets/bob.pem" \
+    --pem="netflix/wallets/bob.pem" \
     --gas-limit=100000000 \
     --function="setSafePriceView" \
     --arguments ${SAFE_PRICE_VIEW} 
@@ -83,14 +83,13 @@ TOKEN_3=USDC-79d9a4
 LP_ADDRESS_TOKEN_3="erd1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq6gq4hu"
 
 
-
 addToken() {
     mxpy --verbose contract call ${CONTRACT_ADDRESS} \
     --send \
     --proxy=${PROXY} \
     --chain=${CHAIN_ID} \
     --recall-nonce \
-    --pem="erc1155/wallets/bob.pem" \
+    --pem="netflix/wallets/bob.pem" \
     --gas-limit=100000000 \
     --function="addToken" \
     --arguments "str:"${TOKEN_3}  ${LP_ADDRESS_TOKEN_3}
@@ -159,7 +158,7 @@ addService() {
     --proxy=${PROXY} \
     --chain=${CHAIN_ID} \
     --recall-nonce \
-    --pem="erc1155/wallets/bob.pem" \
+    --pem="netflix/wallets/bob.pem" \
     --gas-limit=100000000 \
     --function="addService" \
     --arguments ${SERVICE3_PRICE_POWERED} ${SERVICE1_PERIODICITY}
@@ -205,7 +204,7 @@ initServicesCount() {
     --proxy=${PROXY} \
     --chain=${CHAIN_ID} \
     --recall-nonce \
-    --pem="erc1155/wallets/bob.pem" \
+    --pem="netflix/wallets/bob.pem" \
     --gas-limit=100000000 \
     --function="initServicesCount"
 }
@@ -216,7 +215,7 @@ initTokensCount() {
     --proxy=${PROXY} \
     --chain=${CHAIN_ID} \
     --recall-nonce \
-    --pem="erc1155/wallets/bob.pem" \
+    --pem="netflix/wallets/bob.pem" \
     --gas-limit=100000000 \
     --function="initTokensCount"
 }
